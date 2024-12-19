@@ -33,7 +33,7 @@ grad = grDevices::colorRampPalette(c(dar, pin))(5)
 ![](bsvarSIGNs.png){.absolute top=80 right=-75 width="400"}
 
 
-## Analizy strukturalne z paczkami bsvars i bsvarSIGNs dla R {style="color:#ff68b4;"}
+## <span style='color: #ff68b4;'>Analizy predyktyne z paczkami bsvars i bsvarSIGNs dla R</span>{background-color="#0c606d"}
 
 $$ $$
 
@@ -41,11 +41,11 @@ $$ $$
 
 ### strukturalne modele VAR {style="color:#ff68b4;"}
 
-### identyfikacja modeli strukturalnych{style="color:#ff68b4;"}
-
 ### modelowanie rozkładu i zmienności {style="color:#ff68b4;"}
 
-### skrypty dla analiz strukturalnych {style="color:#ff68b4;"}
+### analizy predyktywne {style="color:#ff68b4;"}
+
+### skrypty dla analiz predyktywnych {style="color:#ff68b4;"}
 
 
 
@@ -56,11 +56,11 @@ $$ $$
 
 $$ $$
 
-### slajdy jako [strona internetowa](https://bsvars.org/2024-12-uwwne/) {style="color:#ff68b4;"}
+### slajdy jako [strona internetowa](https://bsvars.org/2024-12-sgh/) {style="color:#ff68b4;"}
 
-### [repozytorium](https://github.com/bsvars/2024-12-uwwne) na GitHub dla reprodukcji wyników{style="color:#ff68b4;"}
+### [repozytorium](https://github.com/bsvars/2024-12-sgh) na GitHub dla reprodukcji wyników{style="color:#ff68b4;"}
 
-### [skrypty](https://github.com/bsvars/2024-12-uek/blob/master/bsvars_oz.R) dla reprodukcji wyników {style="color:#ff68b4;"}
+### [skrypty](https://github.com/bsvars/2024-12-sgh/blob/master/bsvars_oz.R) dla reprodukcji wyników {style="color:#ff68b4;"}
 
 
 $$ $$
@@ -535,266 +535,6 @@ post |> forecast(horizon = 12) |> plot()
 
 
 
-
-
-
-## strukturalne modele VAR
-
-::: footer
-[bsvars.org](https://bsvars.org)
-:::
-
-### błędy statystyczne.
-\begin{align}
-&&&\\
-\text{równanie strukturalne: }&& \epsilon_t &= \mathbf{B}^{-1}u_t = \mathbf{\Theta}_0 u_t\\[1ex]
-\text{błędy statystyczne: }&& \epsilon_t |Y_{t-1} &\sim N_N\left(\mathbf{0}_N,\Sigma\right)\\[1ex]
-\text{kowariancja: }&& \mathbf\Sigma &= \mathbf{B}^{-1}\mathbf{B}^{-1\prime} = \Theta_0\Theta_0'
-\end{align}
-
-### Notacja.
-- $\mathbf\Sigma$ - $N\times N$ kowariancja błędów statystycznych
-- $\Theta_0 = \mathbf{B}^{-1}$ - $N\times N$ macierz efektów strukturalnych
-
-
-## strukturalne modele VAR
-
-::: footer
-[bsvars.org](https://bsvars.org)
-:::
-
-Wstaw *równanie VAR* w *równanie strukturalne*:
-
-\begin{align}
-\mathbf{B}y_t &= \mathbf{B}\mathbf{A}_1 y_{t-1} + \dots + \mathbf{B}\mathbf{A}_p y_{t-p} + \mathbf{B}\boldsymbol\mu_0 + u_t\\[1ex]
-&\\
-\end{align}
-
-### relacje strukturanlne.
-
-Niech $N=2$
-
-\begin{align}
-\mathbf{B}y_t &= \begin{bmatrix}B_{11}&B_{12}\\B_{21}&B_{22}\end{bmatrix}\begin{bmatrix}y_{1t}\\y_{2t}\end{bmatrix}
-\end{align}
-
-
-
-
-
-## strukturalne modele VAR
-
-::: footer
-[bsvars.org](https://bsvars.org)
-:::
-
-Wstaw *równanie strukturalne* dla $\epsilon_t$ w *równanie VAR*:
-
-\begin{align}
-y_t &= \mathbf{A}_1 y_{t-1} + \dots + \mathbf{A}_p y_{t-p} + \boldsymbol\mu_0 + \mathbf{B}^{-1}u_t\\[1ex]
-y_t &= \mathbf{A}_1 y_{t-1} + \dots + \mathbf{A}_p y_{t-p} + \boldsymbol\mu_0 + \mathbf{\Theta}_0 u_t
-\end{align}
-
-### efekty strukturane.
-
-Niech $N=2$
-
-\begin{align}
-\begin{bmatrix}y_{1t}\\y_{2t}\end{bmatrix} &= \dots +
-\begin{bmatrix}\Theta_{11}&\Theta_{12}\\\Theta_{21}&\Theta_{22}\end{bmatrix}\begin{bmatrix}u_{1t}\\ u_{2t}\end{bmatrix}
-\end{align}
-
-
-
-
-## <span style="color: #ff68b4;">identyfikacja modeli strukturalnych</span>  {background-color="#0c606d"}
-
-
-
-
-
-
-## identyfikacja modeli strukturalnych
-
-::: footer
-[bsvars.org](https://bsvars.org)
-:::
-
-### równanie strukturalne.
-
-\begin{align}
-\text{relacje strukturalne:}&&\mathbf{Q}\mathbf{B}\epsilon_t &= \mathbf{Q}u_t\\[1ex]
-\text{efekty strukturalne:}&&\epsilon_t &= \mathbf{\Theta}_0\mathbf{Q}'\mathbf{Q} u_t\\[1ex]
-\end{align}
-
-### identyfikacja co do macierzy obrotu.
-
-\begin{align}
-\mathbf\Sigma &= \mathbf{B}^{-1}\mathbf{Q}'\mathbf{Q}\mathbf{B}^{-1\prime} = \mathbf{\Theta}_0\mathbf{Q}'\mathbf{Q}\mathbf{\Theta}_0^{\prime}\\[1ex]
-\mathbf{Q}'\mathbf{Q} &= \mathbf{I}_N\\[1ex]
-\end{align}
-
-+ funkcja wiarygodności nie zależy od $\mathbf{Q}$
-+ identyfikacja modely zawęża typ $\mathbf{Q}$
-
-
-
-
-
-
-
-
-
-## identyfikacja modeli strukturalnych
-
-::: footer
-[bsvars.org](https://bsvars.org)
-:::
-
-### kowariancja i relacje strukturalne.
-
-\begin{align}
-&\\
-\mathbf\Sigma &= \mathbf{B}^{-1}\mathbf{B}^{-1\prime}\\[1ex]
-\end{align}
-
-- $\mathbf\Sigma$ może być estymowana z danych
-- układ równań strukturalnych do rozwiązanie dla $\mathbf{B}$
-- $\mathbf\Sigma$ jest macierzą *symetryczną* $N\times N$
-- $\mathbf\Sigma$ ma $N(N+1)/2$ unikalnych elementów, tj. równań
-- $\mathbf{B}$ jest $N\times N$ macierzą z $N^2$ elementami do estymacji
-- niewystarczająca liczba równań do estymacji $\mathbf{B}$
-- $\mathbf{B}$ <text style="color:#ff68b4;">**nie jest indentyfikowalna**</text>
-
-
-
-
-## identyfikacja modeli strukturalnych
-
-::: footer
-[bsvars.org](https://bsvars.org)
-:::
-
-### restrykcje zerowe.
-
-\begin{align}
-&\\
-\mathbf\Sigma &= \mathbf{B}^{-1}\mathbf{B}^{-1\prime}\\[1ex]
-\end{align}
-
-### identyfikacja.
-
-- jedynie $N(N+1)/2$ elementów w $\mathbf{B}$ może być wyestymowanych
-- nałożenie $N(N-1)/2$ restrykcji na $\mathbf{B}$ ułatwia rozwiązanie
-- zmiana znaków wierszy w $\mathbf{B}$ nie zmienia wartości $\mathbf\Sigma$ 
-- często zakładamy trójkątną macierz $\mathbf{B}$
-- wiersze w $\mathbf{B}$ (i kolumny w $\mathbf\Theta_0$) identyfikowane co do znaku
-+ restrykcje zerowe zmieniają typ macierzy $\mathbf{Q}$ do diagonalnej z elementami $\pm1$
-
-
-
-## identyfikacja modeli strukturalnych
-
-::: footer
-[bsvars.org](https://bsvars.org)
-:::
-
-### restrykcje zerowe.
-
-Niech $N=2$ 
-
-\begin{align}
-\begin{bmatrix}\sigma_1^2&\sigma_{12}\\ \sigma_{12}&\sigma_2^2\end{bmatrix} &\qquad
-\begin{bmatrix}B_{11}&B_{12}\\ B_{21}&B_{22}\end{bmatrix}\\[1ex]
-\end{align}
-
-- 3 unikalne elementy w $\mathbf\Sigma$ - 3 równania
-- 4 elemnty w $\mathbf{B}$ do rozwiązania
-
-### identyfikacja.
-
-\begin{align}
-\begin{bmatrix}\sigma_1^2&\sigma_{12}\\ \sigma_{12}&\sigma_2^2\end{bmatrix} &\qquad
-\begin{bmatrix}B_{11}& 0\\ B_{21}&B_{22}\end{bmatrix}\\[1ex]
-\end{align}
-
-- 3 równania pozwalaja rozwiązać 3 niewiadome w $\mathbf{B}$
-
-
-
-
-
-
-
-
-
-## identyfikacja modeli strukturalnych
-
-::: footer
-[bsvars.org](https://bsvars.org)
-:::
-
-### identyfikacja przez heteroskedastyczność.
-
-Rozważ: 
-
-- dwie kowariancje, $\mathbf\Sigma_1$ and $\mathbf\Sigma_2$,
-- macież $\mathbf{B}_0$ niezmienna w czasie
-- kowariancje heteroskedastycznych szoków strukturalnych $\text{diag}\left(\boldsymbol\sigma_1^2\right)$ i $\text{diag}\left(\boldsymbol\sigma_2^2\right)$
-
-\begin{align}
-\mathbf\Sigma_1 &= \mathbf{B}_0^{-1}\text{diag}\left(\boldsymbol\sigma_1^2\right)\mathbf{B}_0^{-1\prime}\\[1ex]
-\mathbf\Sigma_2 &= \mathbf{B}_0^{-1}\text{diag}\left(\boldsymbol\sigma_2^2\right)\mathbf{B}_0^{-1\prime}
-\end{align}
-
-
-
-## identyfikacja modeli strukturalnych
-
-::: footer
-[bsvars.org](https://bsvars.org)
-:::
-
-### identyfikacja przez heteroskedastyczność.
-\begin{align}
-\mathbf\Sigma_1 &= \mathbf{B}_0^{-1}\text{diag}\left(\boldsymbol\sigma_1^2\right)\mathbf{B}_0^{-1\prime}\\[1ex]
-\mathbf\Sigma_2 &= \mathbf{B}_0^{-1}\text{diag}\left(\boldsymbol\sigma_2^2\right)\mathbf{B}_0^{-1\prime}
-\end{align}
-
-
-### identyfikacja.
-
-- $\mathbf\Sigma_1$ i $\mathbf\Sigma_2$ mają $N^2+N$ unikalnych elementów
-- wszystkie $N^2$ elementy w $\mathbf{B}_0$ mogą być wyestymowane
-- oba wektory $\boldsymbol\sigma_1^2$ i $\boldsymbol\sigma_2^2$ mogą być wyestymowane dzięki założeniu: $E\left[\text{diag}\left(\boldsymbol\sigma_i^2\right)\right] = \mathbf{I}_N$
-
-
-## identyfikacja modeli strukturalnych
-
-::: footer
-[bsvars.org](https://bsvars.org)
-:::
-
-Rozważ uogólnienie
-
-\begin{align}
-u_t |Y_{t-1} &\sim N_N\left(\mathbf{0}_N, \text{diag}\left(\boldsymbol\sigma_t^2\right)\right)\\[1ex]
-\mathbf\Sigma_t &= \mathbf{B}_0^{-1}\text{diag}\left(\boldsymbol\sigma_t^2\right)\mathbf{B}_0^{-1\prime}
-\end{align}
-
-### identyfikacja.
-
-- identyfikacja macierzy $\mathbf{B}_0$ co do znaków i kolejności wierszy
-- szoki są identyfikowalne jeśli wariancje warunkowe nie są proporcjonalne
-- wariancje warunkowe $\boldsymbol\sigma_t^2$ mogą być wyestymowane
-
-
-### modelowanie zmienności.
-
-Wybierz model dla $\boldsymbol\sigma_t^2$ o najlepszych właściwościach.
-
-
-
 ## <span style="color: #ff68b4;">identyfikacja modeli strukturalnych</span> {background-color="#0c606d"}
 
 ```{r Alternative_Identification}
@@ -856,47 +596,210 @@ abline(a = 0, b = -1, col = "#ff68b4")
 
 
 
-## identyfikacja modeli strukturalnych
+
+
+## <span style="color: #ff68b4;">analizy predyktywne</span>  {background-color="#0c606d"}
+
+
+## cel prognozowania ekonomicznego
 
 ::: footer
 [bsvars.org](https://bsvars.org)
 :::
 
-### restrykcje znaku.
+$\left.\right.$
+
+... to efektywne użycie danych do dostarczenia statystycznej charakterystyki nieznanych przyszłych wartości interesujących dla nas wielkości.
+
+$\left.\right.$
+
+Pełna statystyczna charakterystyka nieznanych przyszłych wartości zmiennych losowych jest dana przez ich *gęstość predykcyjną*
+
+$\left.\right.$
+
+Proste charakterystyki gęstośc predykcyjnej są zwykle używane w procesach decyzyjnych.
+
+$\left.\right.$
+
+Charakterystyki gęstości predykcyjnej są również komunikowane do szerszych odbiorców.
+
+
+## gęstość predykcyjna w modelach SVAR
+
+::: footer
+[bsvars.org](https://bsvars.org)
+:::
+
+### model SVAR.
+\begin{align*}
+y_t &= \mathbf{A}_1 y_{t-1} + \dots + \mathbf{A}_p y_{t-p} + \mathbf{A}_d x_{t} + \epsilon_t\\[2ex]
+\epsilon_t|Y_{t-1} &\sim iidN_N\left(\mathbf{0}_N,\mathbf\Sigma_t\right)\\[2ex]
+\mathbf\Sigma_t &= \mathbf{B}^{-1} \text{diag}\left(\boldsymbol\sigma^2_t\right)\mathbf{B}^{-1\prime}
+\end{align*}
+
+### warunkowa gęstość predykcyjna na jeden okres.
+
+\begin{align*}
+y_{t+h}|Y_{t+h-1},\mathbf{A},\mathbf\Sigma_{t+h} &\sim N_N\left(\mathbf{A}_1 y_{t+h-1} + \dots + \mathbf{A}_p y_{t+h-p} + \mathbf{A}_d x_{t+h},\mathbf\Sigma_{t+h}\right)
+\end{align*}
+
+
+## gęstość predykcyjna
+
+::: footer
+[bsvars.org](https://bsvars.org)
+:::
+
+$\left.\right.$
+
+Prognozowanie bayesowskie uwzględnia niepewność co do estymacji parametrów, wycałkowując ją z gęstości predykcyjnej.
+
+\begin{align*}
+&\\
+p(y_{T+1}|Y,X) &= \int p(y_{T+1}|Y_{T},\mathbf{A},\mathbf\Sigma_{T+1}) p(\mathbf{A},\mathbf\Sigma_{T+1}|Y,X) d(\mathbf{A},\mathbf\Sigma_{T+1})\\ &
+\end{align*}
+
+- $p(y_{T+1}|Y,X)$ - gęstość predykcyjna
+- $p(y_{T+1}|Y_{t},\mathbf{A},\mathbf\Sigma_{T+1})$ - warunkowa gęstość predykcyjna na jeden okres
+- $p(\mathbf{A},\mathbf\Sigma_{T+1}|Y,X)$ - brzegowy rozkład *a posteriori* parameterów
+- uwzględnia predykcję zmienności $\boldsymbol\sigma^2_{T+1}$ dla obliczenia $\mathbf\Sigma_{T+1}$
+
+
+
+
+## próbkowanie z gęstości predykcyjnej
+
+::: footer
+[bsvars.org](https://bsvars.org)
+:::
+
+$\left.\right.$
+
+#### krok 1: próbkuj z rozkładu *a posteriori* parametrów
+
+... aby otrzymać $S$ ciągnięć $\left\{ \mathbf{A}^{(s)},\mathbf\Sigma_{T+1}^{(s)} \right\}_{s=1}^{S}$
+
+$\left.\right.$
+
+#### krok 2: próbkuj z gęstości predykcyjnej
+
+Aby uzyskać ciągnięcia z $p(y_{T+1}|Y,X)$, dla każdego z $S$ ciągnięć z $(\mathbf{A},\mathbf\Sigma_{T+1})$ próbkuj odpowiadające wartości $y_{T+1}$:
+
+Próbkuj $y_{T+1}^{(s)}$ z
+$$ 
+N_N\left(\mathbf{A}_1^{(s)} y_{T} + \dots + \mathbf{A}_p^{(s)} y_{T-p+1} + \mathbf{A}_d^{(s)} x_{T+1},\mathbf\Sigma_{T+1}^{(s)}\right)
+$$
+aby otrzymać $\left\{y_{T+1}^{(s)}\right\}_{s=1}^{S}$
+
+
+
+
+
+
+
+
+
+## impulse response functions
+::: footer
+[bsvars.org](https://bsvars.org)
+:::
+
+$\left.\right.$
+
+**Impulse response functions** dla *szoków strukturalnych* obliczone dla właściwie sformułowanego empirycznie modelu SVAR są rozważane jako <text style="color:#ff68b4;">**dynamiczne efekty przyczynowe**</text> szoków $u_t$ na zmienne ekonomiczne $y_{t+i}$ na $i$ okresów po wystąpieniu szoku.
+
+\begin{align*}
+\frac{\partial y_{n.t+i}}{\partial u_{j.t}}&=\theta_{nj.i}
+\end{align*}
+
+- $\theta_{nj.i}$ - impulse response $n$-tej zmiennej na $j$ szok $i$ okresów po wystąpieniu szoku dla $i=0,1,\dots,h$ i $n,j=1,\dots,N$
+
+
+
+
+
+
+## impulse response functions
+::: footer
+[bsvars.org](https://bsvars.org)
+:::
+
+$\left.\right.$
+
+### ...jako różnica w prognozach warunkowych.
 
 \begin{align}
-\text{relacje strukturalne:}&&\tilde{\mathbf{B}}\epsilon_t &= \tilde{u}_t\\[1ex]
-\text{efekty strukturalne:}&&\epsilon_t &= \tilde{\mathbf{\Theta}}_0\tilde{u}_t\\[1ex]
+\mathbf\Theta_{h[\cdot i]} &= \mathbb{E}\left[\mathbf{y}_{T+h}| u_{i.T} = 1,\mathbf{Y},\mathbf{X}\right] - \mathbb{E}\left[\mathbf{y}_{T+h}| \mathbf{Y},\mathbf{X}\right]
 \end{align}
 
-+ restrykcje na znak elementów w $\tilde{\mathbf{B}}=\mathbf{Q}\mathbf{B}$ i/lub $\tilde{\mathbf{\Theta}}_0=\mathbf{\Theta}_0\mathbf{Q}'$
-+ zawęża zbiór identyfikowalny: model jest identyfikowalny co do macierzy obrotu $\mathbf{Q}$ koherentnej z restrykcjami
-+ estymacja ma za cel oszacowanie zbioru identyfikowalnego
+### ...jako mechanizm propagacji szoku.
 
-### restrykcje znaku i zerowe.
-
-+ restrykcje zerowe i na znak elementów w  $\tilde{\mathbf{B}}$ i/lub $\tilde{\mathbf{\Theta}}_0$
-+ zawęża zbiór identyfikowalny
-
-
+\begin{align}
+y_t &= \mathbf{B}^{-1}\mathbf{u}_t + \mathbf{A}_1 y_{t-1}\\
+&= \mathbf{B}^{-1}\mathbf{u}_t + \mathbf{A}_1 \mathbf{B}^{-1}\mathbf{u}_{t-1} + \mathbf{A}_1^2 y_{t-2}\\
+&\dots\\
+&= \mathbf{\Theta}_0\mathbf{u}_t + \mathbf{\Theta}_1\mathbf{u}_{t-1} + \mathbf{\Theta}_2\mathbf{u}_{t-2} + \dots
+\end{align}
 
 
-## identyfikacja modeli strukturalnych
 
+
+
+
+## forecast error variance decompositions
 ::: footer
 [bsvars.org](https://bsvars.org)
 :::
 
-### restrykcje narracyjne.
+$$ $$
 
-+ restrykcje na znak elementów lub wielkości $u_t$ lub $\tilde{u}_t$
-+ restrykcje w oparciu na narrację, teorię ekonomii i konsensus naukowy
-+ należy dostosować metody estymacji
-+ zawęża zbiór identyfikowalny
+...są sposobem na szacunek względnej ważności szoków w wyjaśnianiu wariancji predyktywnej zmiennych w systemie.
 
-### nowa cecha.
+$$ $$
 
-+ restrykcje zerowe, narracyjne i na znak w jednym modelu w paczce **bsvarSIGNs**
+#### macierz kowariancji predyktywnej.
+
+\begin{align}
+\mathbf\Sigma_{T+h} &= 
+\mathbf{\Theta}_h \text{diag}\left(\boldsymbol\sigma^2_{T+h}\right)\mathbf{\Theta}_h^{\prime}
+\end{align}
+
+#### wariancja predyktywna.
+
+Dla pierwszej zmiennej w okresie $h$ naprzód, dla $N=2$:
+
+\begin{align}
+\sum_{i=0}^{h-1}\mathbf\Sigma_{T+i[11]} &= \sum_{i=0}^{h-1}
+\mathbf{\Theta}_{i[11]}^2 \sigma^2_{1.T+i} + \mathbf{\Theta}_{i[12]}^2 \sigma^2_{2.T+i}
+\end{align}
+
+
+
+
+
+
+## forecast error variance decompositions
+::: footer
+[bsvars.org](https://bsvars.org)
+:::
+
+$$ $$
+
+...są sposobem na szacunek względnej ważności szoków w wyjaśnianiu wariancji predyktywnej zmiennych w systemie.
+
+$$ $$
+
+#### forecast error variance decomposition
+
+..dla wpływu pierwszego szoku na wariancję predyktywną pierwszej zmiennej:
+
+\begin{align}
+FEVD_{T+h[11]} &= \sum_{i=0}^{h-1}\frac{\mathbf{\Theta}_{i[11]}^2 \sigma^2_{1.T+i}}{
+\mathbf{\Theta}_{i[11]}^2 \sigma^2_{1.T+i} + \mathbf{\Theta}_{i[12]}^2 \sigma^2_{2.T+i}}
+\end{align}
+
+
+
 
 
 
@@ -1015,13 +918,13 @@ plot(
 lines(
   x = grid_var, 
   y = p_sv(grid_var, T), 
-  col = "#ffd700",
+  col = "#0c606d",
   lwd = 2
 )
 legend(
   "topright",
   legend = c("niescentrowana", "scentrowana"),
-  col = c(pin, "#ffd700"),
+  col = c(pin, "#0c606d"),
   lwd = 2,
   bty = "n"
 )
@@ -1121,7 +1024,7 @@ abline(h = 0, lwd = 0.5)
 
 
 
-## <span style='color: #ff68b4;'>skrypty dla analiz strukturalnych</span> {background-color="#0c606d"}
+## <span style='color: #ff68b4;'>skrypty dla analiz predykcyjnych</span> {background-color="#0c606d"}
 
 ## mały system polityki pieniężnej
 
@@ -1311,8 +1214,26 @@ post |>
 
 
 
+## oblicz warunkowane prognozy
+
+::: footer 
+[bsvars.org](https://bsvars.org) 
+:::
+
+```{r}
+#| cache: true
+
+# daj tu ścieżkę cr
+
+post |> 
+  forecast(horizon = 8) |> 
+  plot(data_in_plot = 0.3)
+
+```
+
+
 
 ##  {background-color="#0c606d"}
 
-![](social_uwwne.png){.absolute top=10 right=10 width="1000"}
+![](social_sgh.png){.absolute top=10 right=10 width="1000"}
 
