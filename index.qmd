@@ -1223,10 +1223,11 @@ post |>
 ```{r}
 #| cache: true
 
-# daj tu ścieżkę cr
+cond_fore = matrix(NA, 8,4)
+cond_fore[,3] = c(4.35,4.10,3.35,2.85,2.60,2.35,2.10,2.10)
 
 post |> 
-  forecast(horizon = 8) |> 
+  forecast(horizon = 8, conditional_forecast = cond_fore) |> 
   plot(data_in_plot = 0.3)
 
 ```
